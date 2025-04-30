@@ -15,7 +15,7 @@ function App() {
   const [file, setFile] = useState(null);
   const [statusData, setStatusData] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
- const BACKEND = 'https://whatsappbulk-cta5.onrender.com:5000'
+ const BACKEND = 'https://whatsappbulk-cta5.onrender.com'
   // Check if backend is ready (only once)
   useEffect(() => {
     const checkStatus = async () => {
