@@ -15,12 +15,13 @@ function App() {
   const [file, setFile] = useState(null);
   const [statusData, setStatusData] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
- const BACKEND = 'https://whatsappbulk-cta5.onrender.com'
+  const BACKEND = 'https://whatsappbulk-cta5.onrender.com';
+
   // Check if backend is ready (only once)
   useEffect(() => {
     const checkStatus = async () => {
       try {
-        const res = await axios.get(BACKEND +'/api/status');
+        const res = await axios.get(BACKEND + '/api/status');
         setServerRunning(true); // Server is running
       } catch (err) {
         setError('❌ Server not available.');
@@ -37,7 +38,7 @@ function App() {
           .then((res) => {
             setMessageStatus(res.data);
             setStatusData(res.data); // Update table when backend sends status
-                      })
+          })
           .catch((err) => {
             console.error('Error fetching status', err.message);
           });
@@ -48,7 +49,7 @@ function App() {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post(BACKEND +'/api/login', { password });
+      const response = await axios.post(BACKEND + '/api/login', { password });
       if (response.status === 200) {
         setIsLoggedIn(true);
       } else {
@@ -111,7 +112,7 @@ function App() {
   return (
     <div style={{ padding: '20px', fontFamily: 'Arial', backgroundColor: '#121212', color: '#fff' }}>
       {!isLoggedIn ? (
-        <div style={{ textAlign: 'center', padding: '50px',height:'100vh' }}>
+        <div style={{ textAlign: 'center', padding: '50px', height: '100vh' }}>
           <h2>Enter Password to Continue</h2>
           <input
             type="password"
@@ -204,17 +205,17 @@ function App() {
             <div style={{ width: '48%' }}>
               <h3>📋 Message Details</h3>
               <input
-  type="text"
-  placeholder="Search Phone Number"
-  style={{
-    padding: '10px',
-    marginBottom: '10px',
-    width: '100%',
-    borderRadius: '5px',
-  }}
-  value={searchQuery}
-  onChange={(e) => setSearchQuery(e.target.value)}
-/>
+                type="text"
+                placeholder="Search Phone Number"
+                style={{
+                  padding: '10px',
+                  marginBottom: '10px',
+                  width: '100%',
+                  borderRadius: '5px',
+                }}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
 
               <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                 <thead>
