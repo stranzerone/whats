@@ -15,12 +15,12 @@ function App() {
   const [file, setFile] = useState(null);
   const [statusData, setStatusData] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-
+ const BACKEND = 'https://whatsappbulk-cta5.onrender.com:5000'
   // Check if backend is ready (only once)
   useEffect(() => {
     const checkStatus = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/status');
+        const res = await axios.get(BACKEND +'/api/status');
         setServerRunning(true); // Server is running
       } catch (err) {
         setError('❌ Server not available.');
@@ -33,7 +33,7 @@ function App() {
   useEffect(() => {
     if (serverRunning) {
       const interval = setInterval(() => {
-        axios.get('http://localhost:5000/api/message-status')
+        axios.get(BACKEND + '/api/message-status')
           .then((res) => {
             setMessageStatus(res.data);
             setStatusData(res.data); // Update table when backend sends status
@@ -48,7 +48,7 @@ function App() {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/api/login', { password });
+      const response = await axios.post(BACKEND +'/api/login', { password });
       if (response.status === 200) {
         setIsLoggedIn(true);
       } else {
@@ -61,7 +61,7 @@ function App() {
 
   const resetLogs = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/api/reset');
+      const response = await axios.post(BACKEND + '/api/reset');
       if (response.status === 200) {
         setMessageStatus([]); // Clear the table and chart
         setStatusData([]);
@@ -81,7 +81,7 @@ function App() {
 
     try {
       setIsUploading(true);
-      await axios.post('http://localhost:5000/api/send-messages', formData);
+      await axios.post(BACKEND + '/api/send-messages', formData);
       setIsUploading(false); // Set uploading to false once the request is sent
     } catch (err) {
       console.error(err);
